@@ -7,7 +7,6 @@ import xlogo from "../assets/xlogo.png";
 import iglogo from "../assets/iglogo.png";
 import linkedinlogo from "../assets/linkedinlogo.png";
 import githublogo from "../assets/githublogo.png";
-import { Code } from "@chakra-ui/react";
 
 const About = () => {
   const ref = React.useRef(null);
@@ -47,11 +46,11 @@ const About = () => {
           className="w-[80%] flex flex-col items-center justify-center"
           ref={textRef}
         >
-          <Code
+          {/* <Code
             className="mb-8"
             style={{ fontSize: "2.0rem", fontWeight: "bold" }}
             children="About Me"
-          />
+          /> */}
           <p className="text-lg text-justify w-full md:w-[70%]">
             Hi, I&apos;m{" "}
             <span className="text-red-500 text-xl font-semibold">

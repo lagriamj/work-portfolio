@@ -1,5 +1,4 @@
 import "./App.css";
-// import logo from "./assets/logo2.png";
 import Contact from "./sections/Contact";
 import Footer from "./sections/Footer";
 import Home from "./sections/Home";
