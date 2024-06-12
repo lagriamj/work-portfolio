@@ -71,7 +71,7 @@ const Tools = () => {
     },
   ];
 
-  const frontEnd = "Front-end technologies I prefer using".split(" ");
+  const frontEnd = "Tools Of The Present And Future".split(" ");
 
   const gridLogoVariants = {
     hidden: { opacity: 0 },
