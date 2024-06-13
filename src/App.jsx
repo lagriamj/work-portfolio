@@ -61,7 +61,7 @@ function App() {
           <div>
             <motion.a
               href="#contact"
-              className="py-2 px-3 bg-transparent border-2 border-white rounded-lg text-sm text-white ml-4 mr-10 cursor-pointer relative overflow-hidden"
+              className="py-2 px-3 bg-transparent lg:block hidden border-2 border-white rounded-lg text-sm text-white ml-4 mr-10 cursor-pointer relative overflow-hidden"
               whileHover="hover"
             >
               <motion.div
