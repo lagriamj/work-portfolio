@@ -2,7 +2,7 @@
 import { FaDownload } from "react-icons/fa";
 import me from "../assets/me1.webp";
 import { motion, useInView } from "framer-motion";
-import resume from "../../public/Resume_Lagria-main.pdf";
+import resume from "../assets/lagria-resume.pdf";
 import { useRef } from "react";
 
 const Home = () => {
@@ -25,9 +25,8 @@ const Home = () => {
         <h1 className="lg:text-6xl text-5xl font-medium">Hello, There!</h1>
 
         <p className="text-base text-gray-300 w-[80%] lg:w-[70%]">
-          I am Mark John Lagria from Davao City, Philippines. I am a graduating
-          IT student from the University of Mindanao and i am an aspiring
-          Software Developer. I can do Full-stack Development, but my main is
+          I am Mark John Lagria from Davao City, Philippines. As a web
+          developer, I can do Full-stack Development, but my main focus is
           Back-end Development.
         </p>
         <motion.a

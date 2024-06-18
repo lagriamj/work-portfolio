@@ -17,8 +17,8 @@ const Tools = () => {
       logo: "https://img.icons8.com/color/48/000000/react-native.png",
     },
     {
-      name: "Flutter",
-      logo: flutter,
+      name: "VueJs",
+      logo: "https://static-00.iconduck.com/assets.00/vue-js-icon-512x442-k8qh9h45.png",
     },
     {
       name: "Redux Toolkit",
