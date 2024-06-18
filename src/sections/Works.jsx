@@ -20,12 +20,15 @@ const Works = () => {
       desc: "A computer management system for the City Information Technology Center of the Local Government of Davao",
       url: "https://github.com/lagriamj/eRequest-Capstone",
       technologies: ["React", "Laravel", "Tailwind CSS", "MySQL"],
+      video:
+        "https://drive.google.com/file/d/1zSmtOOBEy4CzDEjI8-8W73Mk62neq-n2/view?usp=sharing",
     },
     {
       image: work7,
       title: "iVisit Camiguin - Backend",
       desc: "A ticketing system for the Camiguin Island, it comes with E-Ticketing, Merchandise, Accomodations, and Transportations",
-      url: "https://pos.poolreno.com/",
+      url: "https://github.com/lagriamj/camiguin-backend",
+      site: "https://pos.poolreno.com/",
       technologies: ["VueJs", "Laravel", "PostgreSQL"],
     },
     {
@@ -35,13 +38,13 @@ const Works = () => {
       url: "https://github.com/lagriamj/Conversate",
       technologies: ["ReactJs", "Redux", "Laravel", "Tailwind", "MySQL"],
     },
-    {
-      image: work3,
-      title: "Solchat - UI",
-      desc: "A copy ui chat application that uses the Solana Blockchain for its backend",
-      url: "https://github.com/lagriamj/solchat",
-      technologies: ["React", "Tailwind Css"],
-    },
+    // {
+    //   image: work3,
+    //   title: "Solchat - UI",
+    //   desc: "A copy ui chat application that uses the Solana Blockchain for its backend",
+    //   url: "https://github.com/lagriamj/solchat",
+    //   technologies: ["React", "Tailwind Css"],
+    // },
     {
       image: work4,
       title: "DictioNorlax",
@@ -58,7 +61,7 @@ const Works = () => {
     },
     {
       image: work2,
-      title: "aniMark",
+      title: "AniMark",
       desc: "A simple anime search application that uses the Jikan API",
       url: "https://github.com/lagriamj/aniMark",
       technologies: ["React", "Tailwind Css", "Jikan API"],
@@ -95,17 +98,35 @@ const Works = () => {
               <div className="lg:w-1/2 flex items-center lg:justify-end justify-center py-6">
                 <div className="relative lg:w-[65%] w-[90%] group">
                   <img src={work.image} alt={work.title} className="w-full" />
-                  <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="absolute inset-0  bg-black bg-opacity-50 flex flex-col gap-2 items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <a
                       href={work.url}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="bg-white text-black py-2 px-4 rounded"
                     >
-                      {work.url === "https://pos.poolreno.com/"
-                        ? "Visit Site"
-                        : "Source Code"}
+                      Source Code
                     </a>
+                    {work.video && (
+                      <a
+                        href={work.video}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="bg-white text-black py-2 px-4 rounded cursor-pointer"
+                      >
+                        Watch Video
+                      </a>
+                    )}
+                    {work.site && (
+                      <a
+                        href={work.site}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="bg-white text-black py-2 px-4 rounded cursor-pointer"
+                      >
+                        Visit Website
+                      </a>
+                    )}
                   </div>
                 </div>
               </div>
@@ -139,10 +160,28 @@ const Works = () => {
                       rel="noopener noreferrer"
                       className="bg-white text-black py-2 px-4 rounded"
                     >
-                      {work.url === "https://pos.poolreno.com/"
-                        ? "Visit Site"
-                        : "Source Code"}
+                      Source Code
                     </a>
+                    {work.video && (
+                      <a
+                        href={work.video}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="bg-white text-black py-2 px-4 rounded cursor-pointer"
+                      >
+                        Watch Video
+                      </a>
+                    )}
+                    {work.site && (
+                      <a
+                        href={work.site}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="bg-white text-black py-2 px-4 rounded cursor-pointer"
+                      >
+                        Visit Website
+                      </a>
+                    )}
                   </div>
                 </div>
               </div>
@@ -158,17 +197,35 @@ const Works = () => {
               <div className="lg:w-1/2  hidden lg:flex items-center lg:justify-start justify-center py-6 ">
                 <div className="relative lg:w-[65%] w-[90%] group">
                   <img src={work.image} alt={work.title} className="w-full" />
-                  <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col gap-2 items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <a
                       href={work.url}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="bg-white text-black py-2 px-4 rounded"
                     >
-                      {work.url === "https://pos.poolreno.com/"
-                        ? "Visit Site"
-                        : "Source Code"}
+                      Source Code
                     </a>
+                    {work.video && (
+                      <a
+                        href={work.video}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="bg-white text-black py-2 px-4 rounded cursor-pointer"
+                      >
+                        Watch Video
+                      </a>
+                    )}
+                    {work.site && (
+                      <a
+                        href={work.site}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="bg-white text-black py-2 px-4 rounded cursor-pointer"
+                      >
+                        Visit Website
+                      </a>
+                    )}
                   </div>
                 </div>
               </div>
