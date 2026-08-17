@@ -1,43 +1,25 @@
 import { useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
-import { useToast } from "@chakra-ui/react";
+import { motion } from "framer-motion";
 
 const Contact = () => {
   const form = useRef();
-  const toast = useToast();
   const [isLoading, setIsLoading] = useState(false);
+  const [status, setStatus] = useState(null);
 
   const sendEmail = async (e) => {
     e.preventDefault();
-
-    setIsLoading(true); // Set loading to true before sending
+    setIsLoading(true);
+    setStatus(null);
 
     try {
-      const response = await emailjs.sendForm(
-        "service_m29l4sr",
-        "template_p7p1ydb",
-        form.current,
-        { publicKey: "uYpSv9gX6GneV5JJ9" }
-      );
-
-      toast({
-        title: "Success!",
-        description: "Email Sent Successfully!",
-        status: "success",
-        duration: 3000,
-        isClosable: true,
-        position: "top-right",
+      await emailjs.sendForm("service_m29l4sr", "template_p7p1ydb", form.current, {
+        publicKey: "uYpSv9gX6GneV5JJ9",
       });
-      console.log("SUCCESS!", response);
+      setStatus("success");
+      form.current.reset();
     } catch (error) {
-      toast({
-        title: "Error!",
-        description: "There was an error processing your request.",
-        status: "error",
-        duration: 3000,
-        isClosable: true,
-        position: "top-right",
-      });
+      setStatus("error");
       console.error("FAILED...", error.text);
     } finally {
       setIsLoading(false);
@@ -45,45 +27,102 @@ const Contact = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center w-full h-screen ">
-      <h1 className="text-6xl lg:mt-20 mt-10 font-semibold font-sans-semi">
-        Contact <span className="text-red-500">Me</span>
-      </h1>
-      <form
-        className="lg:w-[80%] w-[90%] h-[85%]"
-        ref={form}
-        onSubmit={sendEmail}
-      >
-        <div className="w-full h-full flex flex-col items-center justify-center gap-4">
-          <input
-            type="text"
-            className="lg:w-[62%] w-[90%] h-14 bg-[#363c45] rounded-lg outline-none text-white px-3 py-2"
-            placeholder="Full Name"
-            name="user_name"
-          />
+    <section
+      id="contact"
+      className="scroll-mt-24 border-t border-line px-5 py-20 md:px-8"
+    >
+      <div className="mx-auto grid max-w-site gap-12 lg:grid-cols-2">
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+        >
+          <p className="section-label">Contact</p>
+          <h2 className="mt-3 text-2xl font-semibold tracking-tight md:text-4xl">
+            Let&apos;s work together.
+          </h2>
+          <p className="mt-5 max-w-sm text-sm leading-relaxed text-muted">
+            Have a project in mind, or just want to say hello? Send a message
+            and I&apos;ll get back to you.
+          </p>
+          <div className="mt-8 space-y-3 text-sm">
+            <a
+              href="mailto:markjohn.lagria8@gmail.com"
+              className="block hover:underline"
+            >
+              markjohn.lagria8@gmail.com
+            </a>
+            <a
+              href="tel:+639959050267"
+              className="block text-muted hover:text-ink"
+            >
+              +63 995 905 0267
+            </a>
+          </div>
+        </motion.div>
 
-          <input
-            type="email"
-            className="lg:w-[62%] w-[90%] h-14 bg-[#363c45] rounded-lg outline-none text-white px-3 py-2"
-            placeholder="Email Address"
-            name="user_email"
-          />
-
-          <textarea
-            placeholder="Your Message"
-            className="lg:w-[62%] w-[90%] outline-none bg-[#363c45] rounded-lg text-white px-3 py-2"
-            rows="12"
-            name="message"
-          />
-          <input
+        <motion.form
+          ref={form}
+          onSubmit={sendEmail}
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="flex flex-col gap-6"
+        >
+          <label className="block">
+            <span className="text-[11px] uppercase tracking-widest text-muted">
+              Name
+            </span>
+            <input
+              type="text"
+              name="user_name"
+              required
+              className="mt-2 w-full border-b border-line bg-transparent py-3 outline-none transition-colors placeholder:text-muted/50 focus:border-ink"
+              placeholder="Your name"
+            />
+          </label>
+          <label className="block">
+            <span className="text-[11px] uppercase tracking-widest text-muted">
+              Email
+            </span>
+            <input
+              type="email"
+              name="user_email"
+              required
+              className="mt-2 w-full border-b border-line bg-transparent py-3 outline-none transition-colors placeholder:text-muted/50 focus:border-ink"
+              placeholder="you@email.com"
+            />
+          </label>
+          <label className="block">
+            <span className="text-[11px] uppercase tracking-widest text-muted">
+              Message
+            </span>
+            <textarea
+              name="message"
+              required
+              rows="4"
+              className="mt-2 w-full resize-none border-b border-line bg-transparent py-3 outline-none transition-colors placeholder:text-muted/50 focus:border-ink"
+              placeholder="Tell me about the project"
+            />
+          </label>
+          <button
             type="submit"
-            value={isLoading ? "Sending..." : "Send Message"}
-            className="bg-red-500 rounded-md px-3 py-2 shadow-xl hover:opacity-90 cursor-pointer font-light text-lg"
             disabled={isLoading}
-          />
-        </div>
-      </form>
-    </div>
+            className="self-start bg-ink px-6 py-2.5 text-sm text-paper transition-transform hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            {isLoading ? "Sending..." : "Send message"}
+          </button>
+          {status === "success" && (
+            <p className="text-sm text-muted">Message sent. Thank you.</p>
+          )}
+          {status === "error" && (
+            <p className="text-sm text-muted">
+              Something went wrong. Please try again, or email me directly.
+            </p>
+          )}
+        </motion.form>
+      </div>
+    </section>
   );
 };
 

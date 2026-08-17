@@ -1,49 +1,22 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: [
-
-    './src/**/*.html',
-    './src/**/*.jsx',
-    './src/index.css',
-  ],
+  content: ["./index.html", "./src/**/*.{js,jsx}"],
   theme: {
-    fontFamily: {
-      sans: ['Poppins', 'sans-serif'],
-    },
-    letterSpacing: {
-      tightest: '-.075em',
-      tighter: '-.05em',
-      tight: '-.025em',
-      normal: '0',
-      wide: '.025em',
-      wider: '.05em',
-      widest: '.1em',
-      mostWidest: '.50em',
-    },
     extend: {
       colors: {
-        'main': '#34353A',
-        'secondary': '#334D66',
-        'lightgrey': 'rgb(211, 211, 211)',
-      },
-      borderRadius: {
-        'custom-bl': '60%',
-        'custom-tl': '4%',
+        paper: "#FFFFFF",
+        ink: "#111111",
+        muted: "#6B7280",
+        line: "#E5E7EB",
+        surface: "#F4F4F5",
       },
       fontFamily: {
-        sans: ['Poppins', 'sans-serif'],
-        'sans-semi': ['Poppins Semibold', 'sans-serif'],
+        sans: ["Inter", "system-ui", "sans-serif"],
       },
-      screens: {
-        'mediumLg' : '1366px',
-        'gotoLarge' : '1400px',
-        'large' : '1530px',
+      maxWidth: {
+        site: "1120px",
       },
     },
   },
-  plugins: [
-    // eslint-disable-next-line no-undef
-    require('daisyui'),
-  ],
-}
-
+  plugins: [],
+};

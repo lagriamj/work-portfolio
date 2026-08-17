@@ -1,71 +1,80 @@
-/* eslint-disable react/no-children-prop */
-import { FaDownload } from "react-icons/fa";
-import me from "../assets/me1.webp";
-import { motion, useInView } from "framer-motion";
-import resume from "../assets/lagria-resume.pdf";
 import { useRef } from "react";
+import { motion } from "framer-motion";
+import me from "../assets/me1.webp";
+import resume from "../assets/lagria-resume.pdf";
 
 const Home = () => {
-  const ref = useRef(null);
-  const imgRef = useRef(null);
+  const photoRef = useRef(null);
 
-  // Use the inView hook with the created refs
-  const inView = useInView(ref, { threshold: 0.5 });
-  const imgInView = useInView(imgRef, { threshold: 0.5 });
+  const onMove = (event) => {
+    const el = photoRef.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const x = (event.clientX - rect.left) / rect.width - 0.5;
+    const y = (event.clientY - rect.top) / rect.height - 0.5;
+    el.style.transform = `perspective(900px) rotateY(${x * 10}deg) rotateX(${-y * 10}deg) scale(1.02)`;
+  };
+
+  const onLeave = () => {
+    const el = photoRef.current;
+    if (!el) return;
+    el.style.transform = "perspective(900px) rotateY(0deg) rotateX(0deg) scale(1)";
+  };
 
   return (
-    <div className="h-screen w-full flex flex-col items-center justify-center md:flex-row overflow-hidden">
-      <motion.div
-        initial={{ opacity: 0, x: "-100px" }}
-        animate={inView ? { x: 0, opacity: 1 } : { x: "-100px", opacity: 0 }}
-        transition={{ duration: 0.7, ease: "easeInOut" }}
-        className="w-full md:w-1/2 h-full flex items-center justify-center text-justify flex-col gap-4"
-        ref={ref}
-      >
-        <h1 className="lg:text-6xl text-5xl font-medium">Hello, There!</h1>
-
-        <p className="text-base text-gray-300 w-[80%] lg:w-[70%]">
-          I am Mark John Lagria from Davao City, Philippines. As a web
-          developer, I can do Full-stack Development, but my main focus is
-          Back-end Development.
-        </p>
-        <motion.a
-          href={resume}
-          download={resume}
-          className="py-2 px-3 bg-transparent border-2 border-white  rounded-lg text-sm text-white ml-4 mr-10 cursor-pointer relative overflow-hidden"
-          whileHover="hover"
-        >
-          <motion.div
-            className="absolute top-0 left-0 h-full bg-red-500 z-0 "
-            initial={{ width: 0 }}
-            variants={{
-              hover: { width: "100%" },
-            }}
-            transition={{ duration: 0.5, ease: "easeInOut" }}
-          />
-          <span className="relative z-10 flex items-center justify-center gap-2">
-            Download CV <FaDownload className="relative z-10" />
-          </span>
-        </motion.a>
-      </motion.div>
-      <div className="hidden md:flex w-full md:w-1/2 h-full items-center justify-center flex-col">
+    <section id="home" className="px-5 pb-20 pt-28 md:px-8 md:pt-32">
+      <div className="mx-auto grid max-w-site items-center gap-12 lg:grid-cols-2">
         <motion.div
-          initial={{ opacity: 0, x: "100px" }}
-          animate={
-            imgInView ? { x: 0, opacity: 1 } : { x: "100px", opacity: 0 }
-          }
-          transition={{ duration: 0.7, ease: "easeInOut" }}
-          className="w-[80%] md:w-[60%] h-[50%] md:h-[60%] flex items-center justify-center bg-[#313131] rounded-lg  relative"
-          ref={imgRef}
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
         >
-          <img
-            src={me}
-            alt="me"
-            className="w-full h-full object-cover absolute bottom-10 right-10 rounded-lg"
-          />
+          <p className="section-label">Backend Developer · Davao City</p>
+          <h1 className="mt-4 text-4xl font-semibold tracking-tight md:text-5xl">
+            Mark John Lagria
+          </h1>
+          <p className="mt-6 max-w-md text-base leading-relaxed text-muted">
+            I build full-stack web applications, with a focus on backend systems
+            that are reliable, structured, and ready to scale.
+          </p>
+          <div className="mt-8 flex flex-wrap items-center gap-4">
+            <a
+              href="#work"
+              className="bg-ink px-5 py-2.5 text-sm text-paper transition-transform hover:-translate-y-0.5"
+            >
+              View work
+            </a>
+            <a
+              href={resume}
+              download="Mark-John-Lagria-Resume.pdf"
+              className="text-sm text-muted underline underline-offset-4 decoration-line transition-colors hover:text-ink hover:decoration-ink"
+            >
+              Download CV
+            </a>
+          </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="mx-auto w-full max-w-sm lg:max-w-md"
+          onMouseMove={onMove}
+          onMouseLeave={onLeave}
+        >
+          <div
+            ref={photoRef}
+            className="overflow-hidden bg-surface transition-transform duration-200 ease-out will-change-transform"
+          >
+            <img
+              src={me}
+              alt="Mark John Lagria"
+              className="aspect-[4/5] w-full object-cover object-top"
+            />
+          </div>
         </motion.div>
       </div>
-    </div>
+    </section>
   );
 };
 

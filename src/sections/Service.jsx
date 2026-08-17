@@ -1,65 +1,49 @@
-import { BiLaptop } from "react-icons/bi";
 import { motion } from "framer-motion";
+
+const services = [
+  {
+    number: "01",
+    title: "Backend development",
+    copy: "I design and build REST APIs that are structured, efficient, and ready to integrate with the rest of your stack. The focus is on reliable data flow, clean architecture, and code that holds up as the product grows.",
+  },
+  {
+    number: "02",
+    title: "Frontend development",
+    copy: "I build responsive interfaces with modern frameworks, keeping the experience fast and easy to use. Frontends are treated as a clear layer over the backend—not a separate product.",
+  },
+];
 
 const Service = () => {
   return (
-    <div className="w-full lg:h-screen h-auto flex flex-col items-center justify-center font-sans border-b-[1px] border-b-gray-600 lg:pb-0 pb-10">
-      <div className="lg:h-[20%] lg:w-[80%] lg:mb-0 mb-10 flex items-center justify-center">
-        <motion.h1
-          initial={{ opacity: 0, y: "-80px" }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: "easeInOut" }}
-          className="lg:text-5xl text-4xl lg:mt-20 "
-        >
-          Services I offer
-        </motion.h1>
+    <section
+      id="service"
+      className="scroll-mt-24 border-t border-line px-5 py-20 md:px-8"
+    >
+      <div className="mx-auto max-w-site">
+        <p className="section-label">Services</p>
+        <h2 className="mt-3 text-2xl font-semibold tracking-tight">What I do</h2>
+
+        <div className="mt-10 grid gap-6 md:grid-cols-2">
+          {services.map((service, index) => (
+            <motion.article
+              key={service.number}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              whileHover={{ y: -4 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.35, delay: index * 0.08 }}
+              className="border border-line bg-paper p-6 transition-colors hover:border-ink"
+            >
+              <span className="text-xs text-muted">{service.number}</span>
+              <h3 className="mt-3 text-lg font-medium">{service.title}</h3>
+              <p className="mt-3 max-w-md text-sm leading-relaxed text-muted">
+                {service.copy}
+              </p>
+            </motion.article>
+          ))}
+        </div>
       </div>
-      <div className="h-[80%] w-[80%] flex lg:flex-row flex-col items-center justify-center lg:gap-12 gap-6 ">
-        <motion.div
-          initial={{ opacity: 0, x: "-80px" }}
-          whileInView={{ opacity: 1, x: 0 }}
-          whileHover={{ scale: 1.1 }}
-          transition={{ duration: 0.5, ease: "easeInOut" }}
-          className="lg:w-[40%] w-[90%] lg:h-[70%] h-auto flex flex-col gap-10 items-center justify-center "
-        >
-          <span className="bg-[#0092FF] rounded-[100%] px-4 py-5 text-xs font-medium spacing tracking-wider">
-            HTTP
-          </span>
-          <h1 className="text-gray-300 text-center lg:text-start text-2xl">
-            Back-end Development
-          </h1>
-          <p className="w-full text-center text-gray-300">
-            Providing backend development with a focus on creating robust and
-            scalable RESTful APIs. Leveraging proven frameworks, ensuring
-            efficient and high-quality code that powers your web applications.
-            Expertise includes seamless integration of your web app with
-            corporate systems, delivering reliable and well-structured APIs to
-            meet your business needs.
-          </p>
-        </motion.div>
-        <motion.div
-          initial={{ opacity: 0, x: "80px" }}
-          whileInView={{ opacity: 1, x: 0 }}
-          whileHover={{ scale: 1.1 }}
-          transition={{ duration: 0.5, ease: "easeInOut" }}
-          className="lg:w-[40%] w-[90%] lg:h-[70%] h-auto flex flex-col gap-10 items-center justify-center "
-        >
-          <span className="bg-[#0092FF] rounded-[100%] px-5 py-4 text-xs font-medium spacing tracking-wider lg:mt-0 mt-10">
-            <BiLaptop className="w-6 h-6" />
-          </span>
-          <h1 className="text-gray-300 text-center lg:text-start text-2xl">
-            Front-end Development
-          </h1>
-          <p className="w-full text-center text-gray-300">
-            Delivering frontend development with an emphasis on creating dynamic
-            and responsive user interfaces. Utilizing modern frameworks and best
-            practices to ensure high-performance and visually appealing web
-            applications. Expertise in creating intuitive and engaging user
-            experiences that seamlessly integrate with backend systems.
-          </p>
-        </motion.div>
-      </div>
-    </div>
+    </section>
   );
 };
 
