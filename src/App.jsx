@@ -3,9 +3,9 @@ import Cursor from "./components/Cursor";
 import Navbar from "./components/Navbar";
 import About from "./sections/About";
 import Contact from "./sections/Contact";
+import Experience from "./sections/Experience";
 import Footer from "./sections/Footer";
 import Home from "./sections/Home";
-import Service from "./sections/Service";
 import Tools from "./sections/Tools";
 import Works from "./sections/Works";
 
@@ -16,9 +16,9 @@ function App() {
       <Navbar />
       <main>
         <Home />
+        <Experience />
         <Works />
         <About />
-        <Service />
         <Tools />
         <Contact />
       </main>

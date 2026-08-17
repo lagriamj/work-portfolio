@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
 const links = [
+  { href: "#experience", label: "Experience", id: "experience" },
   { href: "#work", label: "Work", id: "work" },
   { href: "#about", label: "About", id: "about" },
   { href: "#stack", label: "Stack", id: "stack" },
@@ -15,7 +16,7 @@ const Navbar = () => {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    const ids = ["home", "work", "about", "stack", "contact"];
+    const ids = ["home", "experience", "work", "about", "stack", "contact"];
     const onScroll = () => {
       const max = document.documentElement.scrollHeight - window.innerHeight;
       setScrolled(window.scrollY > 12);
@@ -59,7 +60,7 @@ const Navbar = () => {
           lagriamj
         </a>
 
-        <ul className="hidden items-center gap-8 md:flex">
+        <ul className="hidden items-center gap-6 lg:gap-8 md:flex">
           {links.map((link) => (
             <li key={link.href}>
               <a
