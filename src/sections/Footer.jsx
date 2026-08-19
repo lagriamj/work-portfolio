@@ -4,7 +4,7 @@ import { FaXTwitter } from "react-icons/fa6";
 const Footer = () => {
   return (
     <footer className="border-t border-line px-5 py-8 md:px-8">
-      <div className="mx-auto flex max-w-site flex-col items-start justify-between gap-6 md:flex-row md:items-center">
+      <div className="mx-auto flex max-w-site flex-col items-center justify-between gap-4 text-center md:flex-row md:items-center md:gap-6 md:text-left">
         <p className="text-sm text-muted">
           © {new Date().getFullYear()} Mark John Lagria
         </p>
@@ -14,7 +14,7 @@ const Footer = () => {
         >
           markjohn.lagria8@gmail.com
         </a>
-        <nav className="flex items-center gap-4" aria-label="Social">
+        <nav className="flex items-center justify-center gap-4" aria-label="Social">
           <a
             href="https://www.linkedin.com/in/lagriamj"
             target="_blank"
