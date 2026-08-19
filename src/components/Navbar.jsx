@@ -37,71 +37,89 @@ const Navbar = () => {
   }, []);
 
   useEffect(() => {
+    document.documentElement.style.overflow = open ? "hidden" : "";
     document.body.style.overflow = open ? "hidden" : "";
     return () => {
+      document.documentElement.style.overflow = "";
       document.body.style.overflow = "";
     };
   }, [open]);
 
+  useEffect(() => {
+    const onResize = () => {
+      if (window.innerWidth >= 768) setOpen(false);
+    };
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+
+  const closeMenu = () => setOpen(false);
+
   return (
-    <header
-      className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
-        scrolled || open
-          ? "border-b border-line bg-paper/90 backdrop-blur-md"
-          : "bg-transparent"
-      }`}
-    >
-      <div
-        className="absolute inset-x-0 top-0 h-[2px] origin-left bg-ink"
-        style={{ transform: `scaleX(${progress})` }}
-      />
-      <nav className="mx-auto flex h-16 max-w-site items-center justify-between px-5 md:px-8">
-        <a href="#home" className="text-sm font-medium tracking-wide">
-          lagriamj
-        </a>
+    <>
+      <header
+        className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
+          scrolled && !open
+            ? "border-b border-line bg-paper/90 backdrop-blur-md"
+            : "bg-paper"
+        }`}
+      >
+        <div
+          className="absolute inset-x-0 top-0 h-[2px] origin-left bg-ink"
+          style={{ transform: `scaleX(${progress})` }}
+        />
+        <nav className="relative z-50 mx-auto flex h-16 max-w-site items-center justify-between px-5 md:px-8">
+          <a
+            href="#home"
+            className="text-sm font-medium tracking-wide"
+            onClick={closeMenu}
+          >
+            lagriamj
+          </a>
 
-        <ul className="hidden items-center gap-6 lg:gap-8 md:flex">
-          {links.map((link) => (
-            <li key={link.href}>
-              <a
-                href={link.href}
-                className={`nav-link ${active === link.id ? "text-ink" : ""}`}
-              >
-                {link.label}
-                {active === link.id && (
-                  <span className="absolute -bottom-1 left-0 h-px w-full bg-ink" />
-                )}
-              </a>
-            </li>
-          ))}
-        </ul>
+          <ul className="hidden items-center gap-6 md:flex lg:gap-8">
+            {links.map((link) => (
+              <li key={link.href}>
+                <a
+                  href={link.href}
+                  className={`nav-link ${active === link.id ? "text-ink" : ""}`}
+                >
+                  {link.label}
+                  {active === link.id && (
+                    <span className="absolute -bottom-1 left-0 h-px w-full bg-ink" />
+                  )}
+                </a>
+              </li>
+            ))}
+          </ul>
 
-        <a
-          href="#contact"
-          className="hidden border border-ink px-3 py-1.5 text-sm transition-colors hover:bg-ink hover:text-paper md:inline-flex"
-        >
-          Let&apos;s talk
-        </a>
+          <a
+            href="#contact"
+            className="hidden border border-ink px-3 py-1.5 text-sm transition-colors hover:bg-ink hover:text-paper md:inline-flex"
+          >
+            Let&apos;s talk
+          </a>
 
-        <button
-          type="button"
-          className="relative z-50 flex h-10 w-10 items-center justify-center md:hidden"
-          aria-label={open ? "Close menu" : "Open menu"}
-          aria-expanded={open}
-          onClick={() => setOpen((value) => !value)}
-        >
-          <span
-            className={`absolute h-px w-5 bg-ink transition-transform duration-300 ${
-              open ? "rotate-45" : "-translate-y-1.5"
-            }`}
-          />
-          <span
-            className={`absolute h-px w-5 bg-ink transition-transform duration-300 ${
-              open ? "-rotate-45" : "translate-y-1.5"
-            }`}
-          />
-        </button>
-      </nav>
+          <button
+            type="button"
+            className="relative z-50 flex h-10 w-10 items-center justify-center md:hidden"
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+            onClick={() => setOpen((value) => !value)}
+          >
+            <span
+              className={`absolute h-px w-5 bg-ink transition-transform duration-300 ${
+                open ? "rotate-45" : "-translate-y-1.5"
+              }`}
+            />
+            <span
+              className={`absolute h-px w-5 bg-ink transition-transform duration-300 ${
+                open ? "-rotate-45" : "translate-y-1.5"
+              }`}
+            />
+          </button>
+        </nav>
+      </header>
 
       <AnimatePresence>
         {open && (
@@ -109,20 +127,21 @@ const Navbar = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-40 bg-paper md:hidden"
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-40 bg-paper pt-16 md:hidden"
           >
-            <ul className="flex h-full flex-col items-center justify-center gap-8">
+            <ul className="flex h-full flex-col items-center justify-center gap-8 pb-16">
               {links.map((link, index) => (
                 <motion.li
                   key={link.href}
                   initial={{ opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.08 * index }}
+                  transition={{ delay: 0.06 * index }}
                 >
                   <a
                     href={link.href}
                     className="text-2xl font-medium"
-                    onClick={() => setOpen(false)}
+                    onClick={closeMenu}
                   >
                     {link.label}
                   </a>
@@ -132,7 +151,7 @@ const Navbar = () => {
           </motion.div>
         )}
       </AnimatePresence>
-    </header>
+    </>
   );
 };
 
