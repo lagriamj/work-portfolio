@@ -66,6 +66,8 @@ const worksData = [
 const Works = () => {
   const [hovered, setHovered] = useState(null);
   const [cursor, setCursor] = useState({ x: 0, y: 0 });
+  const featured = worksData[0];
+  const rest = worksData.slice(1);
 
   return (
     <section id="work" className="scroll-mt-24 border-t border-line px-5 py-20 md:px-8">
@@ -80,8 +82,70 @@ const Works = () => {
           </span>
         </div>
 
-        <div className="divide-y divide-line border-y border-line">
-          {worksData.map((work, index) => (
+        <motion.article
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.45 }}
+          className="grid items-center gap-8 border-t border-line pt-10 lg:grid-cols-[1.35fr_0.85fr] lg:gap-12"
+        >
+          <div className="overflow-hidden bg-surface">
+            <img
+              src={featured.image}
+              alt={featured.title}
+              className="aspect-[16/10] w-full object-cover object-top"
+            />
+          </div>
+          <div>
+            <p className="text-[11px] uppercase tracking-widest text-muted">
+              Featured
+            </p>
+            <h3 className="mt-3 text-2xl font-semibold tracking-tight">
+              {featured.title}
+            </h3>
+            <p className="mt-4 text-sm leading-relaxed text-muted">
+              {featured.desc}
+            </p>
+            <p className="mt-4 text-[11px] uppercase tracking-widest text-muted">
+              {featured.technologies.join(" · ")}
+            </p>
+            <div className="mt-6 flex flex-wrap gap-5 text-sm">
+              {featured.url && (
+                <a
+                  href={featured.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline underline-offset-4 decoration-line hover:decoration-ink"
+                >
+                  Source
+                </a>
+              )}
+              {featured.video && (
+                <a
+                  href={featured.video}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline underline-offset-4 decoration-line hover:decoration-ink"
+                >
+                  Video
+                </a>
+              )}
+              {featured.site && (
+                <a
+                  href={featured.site}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline underline-offset-4 decoration-line hover:decoration-ink"
+                >
+                  Live
+                </a>
+              )}
+            </div>
+          </div>
+        </motion.article>
+
+        <div className="mt-14 divide-y divide-line border-y border-line">
+          {rest.map((work, index) => (
             <motion.article
               key={work.title}
               initial={{ opacity: 0, y: 12 }}
@@ -94,13 +158,13 @@ const Works = () => {
               className="group flex cursor-pointer gap-4 py-5 transition-colors sm:items-center hover:bg-surface"
             >
               <span className="hidden w-8 shrink-0 pl-1 text-xs text-muted sm:block">
-                {String(index + 1).padStart(2, "0")}
+                {String(index + 2).padStart(2, "0")}
               </span>
 
               <img
                 src={work.image}
                 alt={work.title}
-                loading={index === 0 ? "eager" : "lazy"}
+                loading="lazy"
                 className="h-16 w-24 shrink-0 object-cover object-top transition-transform duration-300 group-hover:scale-105 sm:h-[72px] sm:w-28"
               />
 
@@ -165,7 +229,7 @@ const Works = () => {
             }}
           >
             <img
-              src={worksData[hovered].image}
+              src={rest[hovered].image}
               alt=""
               className="aspect-video w-full object-cover object-top"
             />

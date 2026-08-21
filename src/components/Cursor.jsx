@@ -18,7 +18,12 @@ const Cursor = () => {
     const onMove = (event) => {
       x = event.clientX;
       y = event.clientY;
+      const overScene = Boolean(
+        event.target.closest?.(".three-scene, canvas")
+      );
       dot.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+      dot.style.opacity = overScene ? "0" : "1";
+      ring.style.opacity = overScene ? "0" : "1";
     };
 
     const onOver = (event) => {

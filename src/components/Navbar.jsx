@@ -77,7 +77,7 @@ const Navbar = () => {
             lagriamj
           </a>
 
-          <ul className="hidden items-center gap-6 md:flex lg:gap-8">
+          <ul className="hidden items-center gap-5 md:flex lg:gap-7">
             {links.map((link) => (
               <li key={link.href}>
                 <a

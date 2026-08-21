@@ -2,6 +2,7 @@ import { useRef } from "react";
 import { motion } from "framer-motion";
 import me from "../assets/me1.webp";
 import resume from "../assets/lagria-resume.pdf";
+import HeroScene from "../components/HeroScene";
 
 const Home = () => {
   const photoRef = useRef(null);
@@ -22,22 +23,27 @@ const Home = () => {
   };
 
   return (
-    <section id="home" className="px-5 pb-20 pt-28 md:px-8 md:pt-32">
-      <div className="mx-auto grid max-w-site items-center gap-12 lg:grid-cols-2">
+    <section id="home" className="relative overflow-hidden px-5 pb-28 pt-32 md:px-8 md:pb-36 md:pt-40">
+      <div className="pointer-events-none absolute inset-0 z-0 hidden opacity-35 lg:block">
+        <HeroScene />
+      </div>
+      <div className="relative z-10 mx-auto grid max-w-site items-center gap-14 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
           <p className="section-label">Backend Developer · Davao City</p>
-          <h1 className="mt-4 text-4xl font-semibold tracking-tight md:text-5xl">
-            Mark John Lagria
+          <h1 className="mt-5 text-5xl font-semibold leading-[0.95] tracking-tight md:text-7xl">
+            Mark John
+            <br />
+            Lagria
           </h1>
-          <p className="mt-6 max-w-md text-base leading-relaxed text-muted">
+          <p className="mt-8 max-w-md text-base leading-relaxed text-muted md:text-lg">
             I build full-stack web applications, with a focus on backend systems
             that are reliable, structured, and ready to scale.
           </p>
-          <div className="mt-8 flex flex-wrap items-center gap-4">
+          <div className="mt-10 flex flex-wrap items-center gap-4">
             <a
               href="#work"
               className="bg-ink px-5 py-2.5 text-sm text-paper transition-transform hover:-translate-y-0.5"
@@ -58,13 +64,17 @@ const Home = () => {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="mx-auto w-full max-w-sm lg:max-w-md"
+          className="relative mx-auto w-full max-w-sm lg:max-w-md lg:justify-self-end"
           onMouseMove={onMove}
           onMouseLeave={onLeave}
         >
           <div
+            className="pointer-events-none absolute left-4 top-4 hidden h-full w-full border border-ink sm:block"
+            aria-hidden="true"
+          />
+          <div
             ref={photoRef}
-            className="overflow-hidden bg-surface transition-transform duration-200 ease-out will-change-transform"
+            className="relative overflow-hidden bg-surface transition-transform duration-200 ease-out will-change-transform"
           >
             <img
               src={me}

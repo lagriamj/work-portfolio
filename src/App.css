@@ -88,4 +88,9 @@ body {
   textarea {
     cursor: none;
   }
+
+  .three-scene,
+  .three-scene * {
+    cursor: grab;
+  }
 }
