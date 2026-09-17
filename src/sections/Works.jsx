@@ -7,8 +7,19 @@ import work6 from "../assets/works/work6.png";
 import work7 from "../assets/works/work7.png";
 import work8 from "../assets/works/work8.png";
 import work9 from "../assets/works/work9.png";
+import work10 from "../assets/works/work10.png";
+import work11 from "../assets/works/work11.png";
+import work12 from "../assets/works/work12.png";
+import work13 from "../assets/works/work13.png";
 
 const worksData = [
+  {
+    image: work13,
+    title: "Visit Camiguin Mobile App",
+    desc: "A mobile app for visitors in Camiguin to earn rewards and win prizes while exploring the island.",
+    technologies: ["Laravel", "PostgreSQL", "Docker"],
+    phone: true,
+  },
   {
     image: work1,
     title: "E-Request System CITC",
@@ -19,12 +30,30 @@ const worksData = [
       "https://drive.google.com/file/d/1zSmtOOBEy4CzDEjI8-8W73Mk62neq-n2/view?usp=sharing",
   },
   {
+    image: work10,
+    title: "LTS — Legislative Tracking System",
+    desc: "A legislative tracking system for the local governments of Tagum, Panabo, and Davao de Oro to manage ordinances, resolutions, and session records.",
+    technologies: ["Laravel", "Flask", "PostgreSQL", "Docker"],
+  },
+  {
+    image: work11,
+    title: "HRIS — Human Resource Information System",
+    desc: "A human resource information system built for BARMM to manage employee records, HR processes, and workforce data.",
+    technologies: ["Laravel", "PostgreSQL", "Docker"],
+  },
+  {
     image: work7,
     title: "iVisit Camiguin",
     desc: "Backend for a Camiguin Island ticketing platform covering e-ticketing, merchandise, accommodations, and transport.",
     url: "https://github.com/lagriamj/camiguin-backend",
     site: "https://pos.poolreno.com/",
     technologies: ["Vue.js", "Laravel", "PostgreSQL"],
+  },
+  {
+    image: work12,
+    title: "Camiguin Rewards Admin",
+    desc: "Admin panel for the Camiguin Rewards app, used to manage campaigns, prizes, and user activity.",
+    technologies: ["Laravel", "PostgreSQL", "Docker"],
   },
   {
     image: work9,
@@ -89,11 +118,19 @@ const Works = () => {
           transition={{ duration: 0.45 }}
           className="grid items-center gap-8 border-t border-line pt-10 lg:grid-cols-[1.35fr_0.85fr] lg:gap-12"
         >
-          <div className="overflow-hidden bg-surface">
+          <div
+            className={`flex overflow-hidden bg-surface ${
+              featured.phone ? "items-center justify-center py-8" : ""
+            }`}
+          >
             <img
               src={featured.image}
               alt={featured.title}
-              className="aspect-[16/10] w-full object-cover object-top"
+              className={
+                featured.phone
+                  ? "h-[420px] w-auto max-w-[220px] object-contain sm:h-[480px]"
+                  : "aspect-[16/10] w-full object-cover object-top"
+              }
             />
           </div>
           <div>
@@ -157,7 +194,7 @@ const Works = () => {
               onMouseMove={(event) => setCursor({ x: event.clientX, y: event.clientY })}
               className="group flex cursor-pointer gap-4 py-5 transition-colors sm:items-center hover:bg-surface"
             >
-              <span className="hidden w-8 shrink-0 pl-1 text-xs text-muted sm:block">
+              <span className="hidden w-9 shrink-0 pl-1 text-xs text-muted sm:block">
                 {String(index + 2).padStart(2, "0")}
               </span>
 
@@ -165,7 +202,11 @@ const Works = () => {
                 src={work.image}
                 alt={work.title}
                 loading="lazy"
-                className="h-16 w-24 shrink-0 object-cover object-top transition-transform duration-300 group-hover:scale-105 sm:h-[72px] sm:w-28"
+                className={`shrink-0 object-cover object-top transition-transform duration-300 group-hover:scale-105 ${
+                  work.phone
+                    ? "h-[72px] w-10 rounded-sm sm:h-20 sm:w-12"
+                    : "h-16 w-24 sm:h-[72px] sm:w-28"
+                }`}
               />
 
               <div className="min-w-0 flex-1 pr-2">
@@ -221,17 +262,23 @@ const Works = () => {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.92 }}
             transition={{ duration: 0.18 }}
-            className="pointer-events-none fixed z-40 hidden overflow-hidden border border-line bg-paper shadow-xl md:block"
+            className={`pointer-events-none fixed z-40 hidden overflow-hidden border border-line bg-paper shadow-xl md:block ${
+              rest[hovered].phone ? "rounded-md" : ""
+            }`}
             style={{
-              width: 280,
-              top: cursor.y - 90,
+              width: rest[hovered].phone ? 180 : 280,
+              top: rest[hovered].phone ? cursor.y - 160 : cursor.y - 90,
               left: cursor.x + 24,
             }}
           >
             <img
               src={rest[hovered].image}
               alt=""
-              className="aspect-video w-full object-cover object-top"
+              className={
+                rest[hovered].phone
+                  ? "aspect-[9/19] w-full object-cover object-top"
+                  : "aspect-video w-full object-cover object-top"
+              }
             />
           </motion.div>
         )}
