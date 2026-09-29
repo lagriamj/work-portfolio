@@ -11,6 +11,8 @@ import work10 from "../assets/works/work10.png";
 import work11 from "../assets/works/work11.png";
 import work12 from "../assets/works/work12.png";
 import work13 from "../assets/works/work13.png";
+import SectionHeading from "../components/SectionHeading";
+import { rise } from "../motion";
 
 const worksData = [
   {
@@ -92,6 +94,18 @@ const worksData = [
   },
 ];
 
+const Outbound = ({ href, children, className = "" }) => (
+  <a
+    href={href}
+    target="_blank"
+    rel="noopener noreferrer"
+    className={`text-link ${className}`}
+  >
+    {children}
+    <span aria-hidden="true"> ↗</span>
+  </a>
+);
+
 const Works = () => {
   const [hovered, setHovered] = useState(null);
   const [cursor, setCursor] = useState({ x: 0, y: 0 });
@@ -99,155 +113,87 @@ const Works = () => {
   const rest = worksData.slice(1);
 
   return (
-    <section id="work" className="scroll-mt-24 border-t border-line px-5 py-20 md:px-8">
+    <section id="work" className="scroll-mt-16 border-t border-line px-4 py-14 lg:px-6">
       <div className="mx-auto max-w-site">
-        <div className="mb-10 flex items-end justify-between">
-          <div>
-            <p className="section-label">Selected work</p>
-            <h2 className="mt-3 text-2xl font-semibold tracking-tight">Projects</h2>
-          </div>
-          <span className="text-sm text-muted">
-            {String(worksData.length).padStart(2, "0")}
-          </span>
+        <div className="flex items-end justify-between gap-4">
+          <SectionHeading index="02" label="work" title="Projects" />
+          <span className="section-label">{String(worksData.length).padStart(2, "0")}</span>
         </div>
 
-        <motion.article
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.45 }}
-          className="grid items-center gap-8 border-t border-line pt-10 lg:grid-cols-[1.35fr_0.85fr] lg:gap-12"
-        >
-          <div
-            className={`flex overflow-hidden bg-surface ${
-              featured.phone ? "items-center justify-center py-8" : ""
-            }`}
-          >
-            <img
-              src={featured.image}
-              alt={featured.title}
-              className={
-                featured.phone
-                  ? "h-[420px] w-auto max-w-[220px] object-contain sm:h-[480px]"
-                  : "aspect-[16/10] w-full object-cover object-top"
-              }
-            />
-          </div>
-          <div>
-            <p className="text-[11px] uppercase tracking-widest text-muted">
-              Featured
-            </p>
-            <h3 className="mt-3 text-2xl font-semibold tracking-tight">
-              {featured.title}
-            </h3>
-            <p className="mt-4 text-sm leading-relaxed text-muted">
-              {featured.desc}
-            </p>
-            <p className="mt-4 text-[11px] uppercase tracking-widest text-muted">
-              {featured.technologies.join(" · ")}
-            </p>
-            <div className="mt-6 flex flex-wrap gap-5 text-sm">
-              {featured.url && (
-                <a
-                  href={featured.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="underline underline-offset-4 decoration-line hover:decoration-ink"
-                >
-                  Source
-                </a>
-              )}
-              {featured.video && (
-                <a
-                  href={featured.video}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="underline underline-offset-4 decoration-line hover:decoration-ink"
-                >
-                  Video
-                </a>
-              )}
-              {featured.site && (
-                <a
-                  href={featured.site}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="underline underline-offset-4 decoration-line hover:decoration-ink"
-                >
-                  Live
-                </a>
-              )}
+        <motion.div {...rise(0)}>
+          <article className="card group mt-10 grid overflow-hidden lg:grid-cols-[minmax(0,1.25fr)_minmax(0,0.85fr)]">
+            <div
+              className={`overflow-hidden bg-bg ${
+                featured.phone ? "flex items-center justify-center py-8" : ""
+              }`}
+            >
+              <img
+                src={featured.image}
+                alt={featured.title}
+                className={`zoom-img ${
+                  featured.phone
+                    ? "h-[420px] w-auto max-w-[220px] object-contain sm:h-[480px]"
+                    : "aspect-[16/10] w-full object-cover object-top"
+                }`}
+              />
             </div>
-          </div>
-        </motion.article>
+            <div className="flex flex-col justify-center p-5">
+              <span className="pill pill-solid w-fit">Featured</span>
+              <h3 className="heading mt-4 text-[1.3rem]">{featured.title}</h3>
+              <p className="mt-3 text-[15px] leading-relaxed text-muted">{featured.desc}</p>
+              <ul className="mt-4 flex flex-wrap gap-1.5">
+                {featured.technologies.map((tech) => (
+                  <li key={tech} className="pill">
+                    {tech}
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-5 flex flex-wrap gap-4 text-[13px]">
+                {featured.url && <Outbound href={featured.url}>Source</Outbound>}
+                {featured.video && <Outbound href={featured.video}>Video</Outbound>}
+                {featured.site && <Outbound href={featured.site}>Live</Outbound>}
+              </div>
+            </div>
+          </article>
+        </motion.div>
 
-        <div className="mt-14 divide-y divide-line border-y border-line">
+        <div className="mt-10 border-t border-line">
           {rest.map((work, index) => (
             <motion.article
               key={work.title}
-              initial={{ opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.4 }}
+              {...rise(Math.min(index, 4))}
               onMouseEnter={() => setHovered(index)}
               onMouseLeave={() => setHovered(null)}
               onMouseMove={(event) => setCursor({ x: event.clientX, y: event.clientY })}
-              className="group flex cursor-pointer gap-4 py-5 transition-colors sm:items-center hover:bg-surface"
+              className="group grid grid-cols-[auto_1fr] items-center gap-4 border-b border-line py-4 sm:grid-cols-[2.25rem_auto_1fr]"
             >
-              <span className="hidden w-9 shrink-0 pl-1 text-xs text-muted sm:block">
+              <span className="section-label hidden sm:block">
                 {String(index + 2).padStart(2, "0")}
               </span>
 
-              <img
-                src={work.image}
-                alt={work.title}
-                loading="lazy"
-                className={`shrink-0 object-cover object-top transition-transform duration-300 group-hover:scale-105 ${
-                  work.phone
-                    ? "h-[72px] w-10 rounded-sm sm:h-20 sm:w-12"
-                    : "h-16 w-24 sm:h-[72px] sm:w-28"
+              <div
+                className={`shrink-0 overflow-hidden rounded-[10px] ${
+                  work.phone ? "h-[72px] w-10 sm:h-20 sm:w-12" : "h-16 w-24 sm:h-[72px] sm:w-28"
                 }`}
-              />
+              >
+                <img
+                  src={work.image}
+                  alt=""
+                  loading="lazy"
+                  className="zoom-img h-full w-full object-cover object-top"
+                />
+              </div>
 
-              <div className="min-w-0 flex-1 pr-2">
-                <h3 className="text-sm font-medium transition-transform duration-300 group-hover:translate-x-1">
+              <div className="min-w-0">
+                <h3 className="text-[15px] font-medium transition-transform duration-200 ease-settle group-hover:translate-x-1">
                   {work.title}
                 </h3>
-                <p className="mt-1 line-clamp-1 text-xs text-muted">{work.desc}</p>
-                <p className="mt-2 text-[11px] text-muted">
-                  {work.technologies.join(" · ")}
-                </p>
-                <div className="mt-2 flex flex-wrap gap-4 text-xs">
-                  {work.url && (
-                    <a
-                      href={work.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-muted hover:text-ink"
-                    >
-                      Source
-                    </a>
-                  )}
-                  {work.video && (
-                    <a
-                      href={work.video}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-muted hover:text-ink"
-                    >
-                      Video
-                    </a>
-                  )}
-                  {work.site && (
-                    <a
-                      href={work.site}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-muted hover:text-ink"
-                    >
-                      Live
-                    </a>
-                  )}
+                <p className="mt-1 line-clamp-1 text-[13px] text-muted">{work.desc}</p>
+                <p className="micro mt-2 tracking-[0.08em]">{work.technologies.join(" · ")}</p>
+                <div className="mt-2 flex flex-wrap gap-4 text-[13px]">
+                  {work.url && <Outbound href={work.url}>Source</Outbound>}
+                  {work.video && <Outbound href={work.video}>Video</Outbound>}
+                  {work.site && <Outbound href={work.site}>Live</Outbound>}
                 </div>
               </div>
             </motion.article>
@@ -258,13 +204,11 @@ const Works = () => {
       <AnimatePresence>
         {hovered !== null && (
           <motion.div
-            initial={{ opacity: 0, scale: 0.92 }}
+            initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.92 }}
-            transition={{ duration: 0.18 }}
-            className={`pointer-events-none fixed z-40 hidden overflow-hidden border border-line bg-paper shadow-xl md:block ${
-              rest[hovered].phone ? "rounded-md" : ""
-            }`}
+            exit={{ opacity: 0, scale: 0.95 }}
+            transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            className="pointer-events-none fixed z-40 hidden overflow-hidden rounded-xl border border-line bg-bg shadow-modal md:block"
             style={{
               width: rest[hovered].phone ? 180 : 280,
               top: rest[hovered].phone ? cursor.y - 160 : cursor.y - 90,

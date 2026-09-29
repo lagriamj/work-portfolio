@@ -2,6 +2,7 @@ import { useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
+import { useTheme } from "../theme";
 
 const Node = ({ position, color, size, speed }) => {
   const ref = useRef();
@@ -28,7 +29,7 @@ const getLinkPositions = () => [
   [-0.5, -0.2, -0.8, 0.4, 0.9, 0.2],
 ];
 
-const Links = () => {
+const Links = ({ palette }) => {
   const points = getLinkPositions();
   const lineRef = useRef();
   const positions = new Float32Array(points.flatMap((p) => p));
@@ -48,26 +49,27 @@ const Links = () => {
             itemSize={3}
           />
         </bufferGeometry>
-        <lineBasicMaterial color="#d1d5db" toneMapped={false} />
+        <lineBasicMaterial color={palette.edge} toneMapped={false} />
       </lineSegments>
-      <Node position={[-1.1, 0.2, 0.4]} color="#111111" size={0.28} speed={0.35} />
-      <Node position={[1.15, 0.35, -0.3]} color="#6b7280" size={0.22} speed={0.28} />
-      <Node position={[0.1, -0.7, 0.6]} color="#111111" size={0.18} speed={0.42} />
-      <Node position={[0.4, 0.9, 0.2]} color="#9ca3af" size={0.16} speed={0.3} />
-      <Node position={[-0.5, -0.2, -0.8]} color="#111111" size={0.2} speed={0.25} />
+      <Node position={[-1.1, 0.2, 0.4]} color={palette.ink} size={0.28} speed={0.35} />
+      <Node position={[1.15, 0.35, -0.3]} color={palette.muted} size={0.22} speed={0.28} />
+      <Node position={[0.1, -0.7, 0.6]} color={palette.ink} size={0.18} speed={0.42} />
+      <Node position={[0.4, 0.9, 0.2]} color={palette.faint} size={0.16} speed={0.3} />
+      <Node position={[-0.5, -0.2, -0.8]} color={palette.ink} size={0.2} speed={0.25} />
       <mesh>
         <torusGeometry args={[1.55, 0.012, 8, 80]} />
-        <meshBasicMaterial color="#e5e7eb" toneMapped={false} />
+        <meshBasicMaterial color={palette.edge} toneMapped={false} />
       </mesh>
       <mesh rotation={[Math.PI / 2.4, 0.4, 0]}>
         <torusGeometry args={[1.15, 0.01, 8, 64]} />
-        <meshBasicMaterial color="#111111" toneMapped={false} />
+        <meshBasicMaterial color={palette.ink} toneMapped={false} />
       </mesh>
     </group>
   );
 };
 
 const StackScene = () => {
+  const { palette } = useTheme();
   return (
     <Canvas
       className="three-scene"
@@ -75,7 +77,7 @@ const StackScene = () => {
       camera={{ position: [0, 0.2, 4.2], fov: 45 }}
       gl={{ antialias: true, alpha: true, toneMapping: THREE.NoToneMapping }}
     >
-      <Links />
+      <Links palette={palette} />
       <OrbitControls enablePan={false} enableZoom={false} autoRotate autoRotateSpeed={0.8} />
     </Canvas>
   );

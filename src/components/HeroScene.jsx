@@ -1,6 +1,7 @@
 import { useMemo, useRef } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
+import { useTheme } from "../theme";
 
 const Shape = ({ geometry, position, speed, color = "#111111" }) => {
   const ref = useRef();
@@ -33,7 +34,7 @@ const randomSpot = (others) => {
   return { x: 0.72, y: 0.4, z: 0 };
 };
 
-const ScatteredShapes = () => {
+const ScatteredShapes = ({ palette }) => {
   const { viewport } = useThree();
   const spots = useMemo(() => {
     const placed = [];
@@ -52,25 +53,26 @@ const ScatteredShapes = () => {
         geometry={<icosahedronGeometry args={[0.32, 0]} />}
         position={[spots[0].x * hx, spots[0].y * hy, spots[0].z]}
         speed={0.16}
-        color="#d1d5db"
+        color={palette.edge}
       />
       <Shape
         geometry={<torusGeometry args={[0.28, 0.014, 10, 48]} />}
         position={[spots[1].x * hx, spots[1].y * hy, spots[1].z]}
         speed={0.14}
-        color="#6b7280"
+        color={palette.muted}
       />
       <Shape
         geometry={<octahedronGeometry args={[0.2, 0]} />}
         position={[spots[2].x * hx, spots[2].y * hy, spots[2].z]}
         speed={0.2}
-        color="#e5e7eb"
+        color={palette.faint}
       />
     </>
   );
 };
 
 const HeroScene = () => {
+  const { palette } = useTheme();
   return (
     <Canvas
       className="three-scene"
@@ -78,7 +80,7 @@ const HeroScene = () => {
       camera={{ position: [0, 0, 8], fov: 50 }}
       gl={{ antialias: true, alpha: true, toneMapping: THREE.NoToneMapping }}
     >
-      <ScatteredShapes />
+      <ScatteredShapes palette={palette} />
     </Canvas>
   );
 };

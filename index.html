@@ -1,12 +1,36 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem("theme");
+          var theme =
+            stored === "light" || stored === "dark" || stored === "system"
+              ? stored
+              : "system";
+          var dark =
+            theme === "dark" ||
+            (theme !== "light" &&
+              window.matchMedia("(prefers-color-scheme: dark)").matches);
+          if (dark) document.documentElement.classList.add("dark");
+          document.documentElement.style.colorScheme = dark ? "dark" : "light";
+        } catch (e) {}
+      })();
+    </script>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
     <meta
       name="description"
       content="Mark John Lagria — backend-focused web developer based in Davao City, Philippines."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap"
+      rel="stylesheet"
     />
     <title>Mark John Lagria</title>
   </head>

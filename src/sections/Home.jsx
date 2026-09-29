@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import me from "../assets/me1.webp";
 import resume from "../assets/lagria-resume.pdf";
 import HeroScene from "../components/HeroScene";
+import { rise } from "../motion";
 
 const Home = () => {
   const photoRef = useRef(null);
@@ -10,6 +11,7 @@ const Home = () => {
   const onMove = (event) => {
     const el = photoRef.current;
     if (!el) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const rect = el.getBoundingClientRect();
     const x = (event.clientX - rect.left) / rect.width - 0.5;
     const y = (event.clientY - rect.top) / rect.height - 0.5;
@@ -23,63 +25,56 @@ const Home = () => {
   };
 
   return (
-    <section id="home" className="relative overflow-hidden px-5 pb-28 pt-32 md:px-8 md:pb-36 md:pt-40">
-      <div className="pointer-events-none absolute inset-0 z-0 hidden opacity-35 lg:block">
+    <section id="home" className="relative overflow-hidden px-4 pb-14 pt-16 lg:px-6 lg:pb-20 lg:pt-24">
+      <div className="halftone pointer-events-none absolute -left-16 -top-20 z-[1] h-56 w-56 lg:h-72 lg:w-72" aria-hidden="true" />
+      <div className="pointer-events-none absolute inset-0 z-0 hidden opacity-30 [mask-image:linear-gradient(90deg,transparent_0%,transparent_36%,#000_64%)] lg:block">
         <HeroScene />
       </div>
-      <div className="relative z-10 mx-auto grid max-w-site items-center gap-14 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          <p className="section-label">Backend Developer · Davao City</p>
-          <h1 className="mt-5 text-5xl font-semibold leading-[0.95] tracking-tight md:text-7xl">
-            Mark John
+      <div className="relative z-10 mx-auto grid min-w-0 max-w-site items-center gap-12 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:gap-14">
+        <div className="min-w-0">
+          <motion.p className="micro" {...rise(0, { animate: true })}>
+            Backend developer · Davao City
+          </motion.p>
+          <motion.h1 className="page-title mt-5" {...rise(1, { animate: true })}>
+            mark
             <br />
-            Lagria
-          </h1>
-          <p className="mt-8 max-w-md text-base leading-relaxed text-muted md:text-lg">
+            john
+            <br />
+            lagria
+          </motion.h1>
+          <motion.p className="mt-6 max-w-md leading-relaxed text-muted" {...rise(2, { animate: true })}>
             I build full-stack web applications, with a focus on backend systems
             that are reliable, structured, and ready to scale.
-          </p>
-          <div className="mt-10 flex flex-wrap items-center gap-4">
-            <a
-              href="#work"
-              className="bg-ink px-5 py-2.5 text-sm text-paper transition-transform hover:-translate-y-0.5"
-            >
+          </motion.p>
+          <motion.div className="mt-8 flex flex-wrap items-center gap-5" {...rise(3, { animate: true })}>
+            <a href="#work" className="btn">
               View work
             </a>
             <a
               href={resume}
               download="Mark-John-Lagria-Resume.pdf"
-              className="text-sm text-muted underline underline-offset-4 decoration-line transition-colors hover:text-ink hover:decoration-ink"
+              className="group text-link font-mono text-[12px] text-muted"
             >
               Download CV
+              <span className="nudge" aria-hidden="true">
+                {" "}
+                ↗
+              </span>
             </a>
-          </div>
-        </motion.div>
+          </motion.div>
+        </div>
 
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="relative mx-auto w-full max-w-sm lg:max-w-md lg:justify-self-end"
+          className="group relative mx-auto w-full max-w-sm lg:max-w-none lg:justify-self-end"
           onMouseMove={onMove}
           onMouseLeave={onLeave}
+          {...rise(4, { animate: true })}
         >
-          <div
-            className="pointer-events-none absolute left-4 top-4 hidden h-full w-full border border-ink sm:block"
-            aria-hidden="true"
-          />
-          <div
-            ref={photoRef}
-            className="relative overflow-hidden bg-surface transition-transform duration-200 ease-out will-change-transform"
-          >
+          <div ref={photoRef} className="inset-frame transition-transform duration-200 ease-out will-change-transform">
             <img
               src={me}
               alt="Mark John Lagria"
-              className="aspect-[4/5] w-full object-cover object-top"
+              className="zoom-img aspect-[4/5] w-full object-cover object-top"
             />
           </div>
         </motion.div>

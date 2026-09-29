@@ -2,6 +2,8 @@ import { useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
 import { AnimatePresence, motion } from "framer-motion";
 import ContactScene from "../components/ContactScene";
+import SectionHeading from "../components/SectionHeading";
+import { rise } from "../motion";
 
 const JetIcon = ({ size = 18 }) => (
   <svg
@@ -149,35 +151,19 @@ const Contact = () => {
   };
 
   return (
-    <section
-      id="contact"
-      className="scroll-mt-24 border-t border-line px-5 py-20 md:px-8"
-    >
-      <div className="mx-auto grid max-w-site gap-12 lg:grid-cols-2">
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
-          <p className="section-label">Contact</p>
-          <h2 className="mt-3 text-2xl font-semibold tracking-tight md:text-4xl">
-            Let&apos;s work together.
-          </h2>
-          <p className="mt-5 max-w-sm text-sm leading-relaxed text-muted">
+    <section id="contact" className="scroll-mt-16 border-t border-line px-4 py-14 lg:px-6">
+      <div className="mx-auto grid min-w-0 max-w-site gap-12 lg:grid-cols-2">
+        <motion.div {...rise(0)}>
+          <SectionHeading index="05" label="contact" title="Let's work together." />
+          <p className="mt-5 max-w-sm leading-relaxed text-muted">
             Have a project in mind, or just want to say hello? Send a message
             and I&apos;ll get back to you.
           </p>
-          <div className="mt-8 space-y-3 text-sm">
-            <a
-              href="mailto:markjohn.lagria8@gmail.com"
-              className="block hover:underline"
-            >
+          <div className="mt-8 space-y-3 text-[15px]">
+            <a href="mailto:markjohn.lagria8@gmail.com" className="text-link block">
               markjohn.lagria8@gmail.com
             </a>
-            <a
-              href="tel:+639959050267"
-              className="block text-muted hover:text-ink"
-            >
+            <a href="tel:+639959050267" className="text-link block text-muted">
               +63 995 905 0267
             </a>
           </div>
@@ -189,49 +175,39 @@ const Contact = () => {
         <motion.form
           ref={form}
           onSubmit={sendEmail}
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          animate={status === "error" ? { x: [0, -8, 8, -6, 6, -2, 2, 0] } : { x: 0 }}
-          transition={{ duration: 0.4 }}
-          className="flex flex-col gap-6"
+          {...rise(1)}
+          className="flex flex-col gap-5"
         >
           <label className="block">
-            <span className="text-[11px] uppercase tracking-widest text-muted">
-              Name
-            </span>
+            <span className="micro">Name</span>
             <input
               type="text"
               name="user_name"
               required
               disabled={isLoading}
-              className="mt-2 w-full border-b border-line bg-transparent py-3 outline-none transition-colors placeholder:text-muted/50 focus:border-ink disabled:opacity-50"
+              className="field"
               placeholder="Your name"
             />
           </label>
           <label className="block">
-            <span className="text-[11px] uppercase tracking-widest text-muted">
-              Email
-            </span>
+            <span className="micro">Email</span>
             <input
               type="email"
               name="user_email"
               required
               disabled={isLoading}
-              className="mt-2 w-full border-b border-line bg-transparent py-3 outline-none transition-colors placeholder:text-muted/50 focus:border-ink disabled:opacity-50"
+              className="field"
               placeholder="you@email.com"
             />
           </label>
           <label className="block">
-            <span className="text-[11px] uppercase tracking-widest text-muted">
-              Message
-            </span>
+            <span className="micro">Message</span>
             <textarea
               name="message"
               required
               rows="4"
               disabled={isLoading}
-              className="mt-2 w-full resize-none border-b border-line bg-transparent py-3 outline-none transition-colors placeholder:text-muted/50 focus:border-ink disabled:opacity-50"
+              className="field resize-none"
               placeholder="Tell me about the project"
             />
           </label>
@@ -239,7 +215,7 @@ const Contact = () => {
             ref={buttonRef}
             type="submit"
             disabled={isLoading}
-            className="relative self-start overflow-hidden bg-ink px-6 py-2.5 text-sm text-paper transition-transform hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+            className="btn relative self-start overflow-hidden"
           >
             <span className="relative inline-flex min-w-[9.5rem] items-center gap-2">
               <span className={`inline-flex ${isLoading || flight ? "opacity-0" : "opacity-100"}`}>
@@ -286,7 +262,7 @@ const Contact = () => {
                 initial={{ opacity: 0, y: 6 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0 }}
-                className="text-sm text-muted"
+                className="text-[13px] text-muted"
               >
                 Message sent. Thank you.
               </motion.p>
@@ -297,7 +273,7 @@ const Contact = () => {
                 initial={{ opacity: 0, y: 6 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0 }}
-                className="text-sm text-muted"
+                className="text-[13px] text-muted"
               >
                 Something went wrong. Please try again, or email me directly.
               </motion.p>

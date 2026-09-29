@@ -1,3 +1,4 @@
+import { MotionConfig } from "framer-motion";
 import "./App.css";
 import Cursor from "./components/Cursor";
 import Navbar from "./components/Navbar";
@@ -11,19 +12,23 @@ import Works from "./sections/Works";
 
 function App() {
   return (
-    <div className="min-h-screen bg-paper text-ink">
-      <Cursor />
-      <Navbar />
-      <main>
-        <Home />
-        <Experience />
-        <Works />
-        <About />
-        <Tools />
-        <Contact />
-      </main>
-      <Footer />
-    </div>
+    <MotionConfig reducedMotion="user">
+      <div className="min-h-screen bg-bg text-ink">
+        <Cursor />
+        <Navbar />
+        <div className="lg:pl-56">
+          <main>
+            <Home />
+            <Experience />
+            <Works />
+            <About />
+            <Tools />
+            <Contact />
+          </main>
+          <Footer />
+        </div>
+      </div>
+    </MotionConfig>
   );
 }
 

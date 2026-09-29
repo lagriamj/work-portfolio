@@ -1,6 +1,7 @@
 import { useMemo, useRef } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
+import { useTheme } from "../theme";
 
 const SignalRing = ({ radius, speed, axis = [0.4, 1, 0.2], color = "#d1d5db", sending }) => {
   const ref = useRef();
@@ -19,7 +20,7 @@ const SignalRing = ({ radius, speed, axis = [0.4, 1, 0.2], color = "#d1d5db", se
   );
 };
 
-const Envelope = ({ sending, status }) => {
+const Envelope = ({ sending, status, palette }) => {
   const group = useRef();
   const flap = useRef();
   const { pointer } = useThree();
@@ -95,20 +96,20 @@ const Envelope = ({ sending, status }) => {
     <group ref={group} position={[0, -0.08, 0]}>
       <mesh position={[0, 0, -0.035]}>
         <boxGeometry args={[1.84, 1.18, 0.05]} />
-        <meshBasicMaterial color="#111111" toneMapped={false} />
+        <meshBasicMaterial color={palette.ink} toneMapped={false} />
       </mesh>
       <mesh position={[0, -0.02, 0.02]}>
         <planeGeometry args={[1.62, 0.92]} />
-        <meshBasicMaterial color="#ffffff" toneMapped={false} />
+        <meshBasicMaterial color={palette.bg} toneMapped={false} />
       </mesh>
       <mesh position={[0, -0.02, 0.028]} rotation={[0, 0, 0.04]}>
         <planeGeometry args={[1.48, 0.78]} />
-        <meshBasicMaterial color="#f4f4f5" toneMapped={false} />
+        <meshBasicMaterial color={palette.surface} toneMapped={false} />
       </mesh>
       <group ref={flap} position={[0, 0.59, 0.04]}>
         <mesh geometry={flapGeometry}>
           <meshBasicMaterial
-            color="#111111"
+            color={palette.ink}
             side={THREE.DoubleSide}
             toneMapped={false}
           />
@@ -119,6 +120,7 @@ const Envelope = ({ sending, status }) => {
 };
 
 const ContactScene = ({ sending = false, status = null }) => {
+  const { palette } = useTheme();
   return (
     <Canvas
       className="three-scene"
@@ -126,15 +128,15 @@ const ContactScene = ({ sending = false, status = null }) => {
       camera={{ position: [0, 0.15, 3.6], fov: 45 }}
       gl={{ antialias: true, alpha: true, toneMapping: THREE.NoToneMapping }}
     >
-      <SignalRing radius={1.55} speed={0.18} color="#e5e7eb" sending={sending} />
+      <SignalRing radius={1.55} speed={0.18} color={palette.edge} sending={sending} />
       <SignalRing
         radius={1.28}
         speed={0.28}
         axis={[1, 0.3, 0.5]}
-        color="#111111"
+        color={palette.ink}
         sending={sending}
       />
-      <Envelope sending={sending} status={status} />
+      <Envelope sending={sending} status={status} palette={palette} />
     </Canvas>
   );
 };
