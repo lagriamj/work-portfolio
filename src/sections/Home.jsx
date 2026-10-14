@@ -1,6 +1,5 @@
 import { useRef } from "react";
 import { motion } from "framer-motion";
-import me from "../assets/me1.webp";
 import resume from "../assets/lagria-resume.pdf";
 import HeroScene from "../components/HeroScene";
 import { rise } from "../motion";
@@ -70,12 +69,23 @@ const Home = () => {
           onMouseLeave={onLeave}
           {...rise(4, { animate: true })}
         >
-          <div ref={photoRef} className="inset-frame transition-transform duration-200 ease-out will-change-transform">
-            <img
-              src={me}
-              alt="Mark John Lagria"
-              className="zoom-img aspect-[4/5] w-full object-cover object-top"
-            />
+          <div
+            ref={photoRef}
+            className="inset-frame aspect-[4/5] w-full transition-transform duration-200 ease-out will-change-transform"
+          >
+            <div className="relative flex h-full flex-col justify-between p-6" aria-hidden="true">
+              <div
+                className="pointer-events-none absolute inset-0"
+                style={{
+                  backgroundImage:
+                    "radial-gradient(circle, rgb(var(--ink) / var(--dot)) 1px, transparent 1px)",
+                  backgroundSize: "9px 9px",
+                }}
+              />
+              <p className="micro relative">davao city</p>
+              <p className="page-title relative !text-[clamp(4.5rem,12vw,7.5rem)]">mj</p>
+              <p className="micro relative">backend · systems</p>
+            </div>
           </div>
         </motion.div>
       </div>
